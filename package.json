@@ -1,0 +1,27 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+
+  "devDependencies": {
+    "nodemon":"^2.0.6",
+    "eslint-config-airbnb-base": "^14.2.0",
+    "eslint-plugin-import": "^2.22.1"
+  },
+
+
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mariawright05/around-express.git"
+  },
+  "author": "",
+  "license": "ISC"
+}
