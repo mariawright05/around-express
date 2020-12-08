@@ -7,6 +7,7 @@ function getCards(req, res) {
     .then((cards) => {
       res.status(200).send(cards)
     })
+    .catch((err) => res.status(500).send({ message: err }))
 }
 
 module.exports = getCards;
