@@ -20,7 +20,8 @@
   "homepage": "https://github.com/mariawright05/around-express#readme",
   "dependencies": {
     "express": "^4.17.1",
-    "mongoose": "^5.11.8"
+    "mongoose": "^5.11.8",
+    "node-mongoose-validator": "^1.2.0"
   },
   "devDependencies": {
     "eslint": "^7.14.0",

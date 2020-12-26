@@ -1,21 +1,25 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const { PORT = 3000 } = process.env;
+const bodyParser = require('body-parser');
+
 const app = express();
 const path = require('path');
 
 mongoose.connect('mongodb://localhost:27017/aroundb', {
   useNewUrlParser: true,
   useCreateIndex:true,
-  useFindAndModify: false
+  useFindAndModify: false,
+  useUnifiedTopology: true,
 });
 
 const userRouter = require('./routers/users');
 const cardRouter = require('./routers/cards');
 
 app.use(express.static(path.join(__dirname, 'public')))
-app.use('/', userRouter);
-app.use('/', cardRouter);
+app.use('/users', userRouter);
+app.use('/cards', cardRouter);
+app.use(bodyParser.json());
 
 app.get('*', (req, res) => {
   res.status(404).send({ message: 'Requested resource not found' });
