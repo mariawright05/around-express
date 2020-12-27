@@ -31,7 +31,7 @@ function createUser(req, res) {
 
   User.create({ name, about, avatar })
     .then(user => res.status(200).send(user))
-    .catch(err => res.status(500).send({ message: 'Error' }));
+    .catch(err => res.status(500).send({ message: 'Error' , err:err }));
 }
 
 module.exports = {
