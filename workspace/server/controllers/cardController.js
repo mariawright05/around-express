@@ -8,6 +8,13 @@ function getCards(req, res) {
       res.status(200).send(cards)
     })
     .catch((err) => res.status(500).send({ message: err }))
-}
+};
 
-module.exports = getCards;
+function createCard (req, res) {
+  console.log(req.user._id);
+};
+
+module.exports = {
+  getCards,
+  createCard,
+};

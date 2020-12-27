@@ -20,6 +20,13 @@ app.use(express.static(path.join(__dirname, 'public')))
 app.use('/users', userRouter);
 app.use('/cards', cardRouter);
 app.use(bodyParser.json());
+app.use((req, res, next) => {
+  req.user = {
+    _id: '5fe8cbdeb3e1372cf078d9c9'
+  };
+
+  next();
+});
 
 app.get('*', (req, res) => {
   res.status(404).send({ message: 'Requested resource not found' });
