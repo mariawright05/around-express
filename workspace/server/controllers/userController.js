@@ -1,4 +1,3 @@
-const getFileContent = require('../helpers/getFileContent');
 const User = require('../models/user');
 
 

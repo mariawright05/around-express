@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const validator = require('node-mongoose-validator');
+const validator = require('validator');
 
 const cardSchema = new mongoose.Schema({
   name: {
@@ -12,8 +12,7 @@ const cardSchema = new mongoose.Schema({
     type: String,
     required: true,
     validate: {
-      validator: (v) => validator.isURL(v),
-      message: 'Please enter a valid URL',
+      validator: (v) => validator.isURL(v, [{ allow_underscores: true }]),
     },
   },
   owner: {
@@ -22,7 +21,7 @@ const cardSchema = new mongoose.Schema({
     required: true,
   },
   likes: {
-    type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'user' }],
+    type: [{ type: mongoose.Schema.Types.ObjectId }],
     default: [],
   },
   createdAt: {

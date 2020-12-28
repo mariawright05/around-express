@@ -1,11 +1,7 @@
-const path = require('path');
-const pathToData = path.join(__dirname, '..', 'data', 'cards.json');
-const getFileContent = require('../helpers/getFileContent');
 const Card = require('../models/card');
-const user = require('../models/user');
 
 function getCards(req, res) {
-  return getFileContent(pathToData, res)
+  return Card.find({})
     .then((cards) => {
       res.status(200).send(cards)
     })
@@ -31,9 +27,8 @@ function deleteCard(req, res) {
     .then((card) => {
       if (!card) {
         res.status(404).send({ message: err })
-      } else {
-        res.status(500).send({ message: err })
       }
+      res.status(200).send({ data:card })
     })
     .catch((err) => {
       if (err.name === 'CastErrpr') {
