@@ -9,7 +9,7 @@ function getUsers(req, res) {
     .then((users) => {
       res.status(200).send(users);
     })
-    .catch((err) => res.status(500).send({ message: err }))
+    .catch((err) => res.status(500).send({ message: 'Error:' , err:err }))
 }
 
 function getOneUser(req, res) {
@@ -23,7 +23,7 @@ function getOneUser(req, res) {
 
       return res.status(404).send({ message: 'User ID not found'});
     })
-    .catch((err) => res.status(500).send({ message: err }))
+    .catch((err) => res.status(500).send({ message: 'Error:' , err:err }))
 }
 
 function createUser(req, res) {
@@ -31,7 +31,7 @@ function createUser(req, res) {
 
   User.create({ name, about, avatar })
     .then(user => res.status(200).send(user))
-    .catch(err => res.status(500).send({ message: 'Error' }));
+    .catch(err => res.status(500).send({ message: 'Error:' , err:err }));
 }
 
 module.exports = {
