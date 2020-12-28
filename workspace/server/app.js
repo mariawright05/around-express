@@ -6,7 +6,6 @@ const bodyParser = require('body-parser');
 const app = express();
 app.use(bodyParser.json());
 
-const path = require('path');
 
 mongoose.connect('mongodb://localhost:27017/aroundb', {
   useNewUrlParser: true,
@@ -19,7 +18,13 @@ mongoose.connect('mongodb://localhost:27017/aroundb', {
 const userRouter = require('./routers/users');
 const cardRouter = require('./routers/cards');
 
-app.use(express.static(path.join(__dirname, 'public')))
+app.use((req, res, next) => {
+  req.user = {
+    _id: '5fe8cbdeb3e1372cf078d9c9',
+  };
+  next();
+});
+
 app.use('/users', userRouter);
 app.use('/cards', cardRouter);
 

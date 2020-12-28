@@ -1,29 +1,29 @@
-const path = require('path');
-const pathToData = path.join(__dirname, '..', 'data', 'users.json');
-const getFileContent = require('../helpers/getFileContent');
 const User = require('../models/user');
 
 
 function getUsers(req, res) {
-  return getFileContent(pathToData, res)
+  return User.find({})
     .then((users) => {
       res.status(200).send(users);
     })
-    .catch((err) => res.status(500).send({ message: err }))
+    .catch((err) => res.status(400).send({ message: err }))
 }
 
 function getOneUser(req, res) {
-  getFileContent(pathToData, res)
-    .then((users) => {
-      const user = users.find((user) => user._id === req.params.id)
-
-      if(user) {
-        return res.status(200).send(user);
+  return User.findById(req.params.id)
+    .then((user) => {
+      if (!user) {
+        return res.status(404).send({ message: err })
       }
-
-      return res.status(404).send({ message: 'User ID not found'});
+      return res.status(200).send(user);
     })
-    .catch((err) => res.status(500).send({ message: err }))
+    .catch((err) => {
+      if (err.name === 'CastError') {
+        res.status(404).send({ message: err });
+      } else {
+        res.status(500).send({ message: err });
+      }
+    })
 }
 
 function createUser(req, res) {
@@ -31,8 +31,15 @@ function createUser(req, res) {
 
   User.create({ name, about, avatar })
     .then(user => res.status(200).send(user))
-    .catch(err => res.status(500).send({ message: 'Error' , err:err }));
-}
+    .catch((err) => {
+      if (err.name === 'ValidationError') {
+        res.status(400).send({ message: err });
+      } else {
+        res.status(500).send({ message: err });
+      }
+    })
+  }
+
 
 module.exports = {
   getUsers,
