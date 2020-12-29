@@ -1,19 +1,20 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const { PORT = 3000 } = process.env;
 const bodyParser = require('body-parser');
+const helmet = require('helmet');
 
 const app = express();
-app.use(bodyParser.json());
+const { PORT = 3000 } = process.env;
 
+app.use(bodyParser.json());
+app.use(helmet());
 
 mongoose.connect('mongodb://localhost:27017/aroundb', {
   useNewUrlParser: true,
-  useCreateIndex:true,
+  useCreateIndex: true,
   useFindAndModify: false,
   useUnifiedTopology: true,
 });
-
 
 const userRouter = require('./routers/users');
 const cardRouter = require('./routers/cards');
@@ -33,5 +34,5 @@ app.get('*', (req, res) => {
 });
 
 app.listen(PORT, () => {
-    console.log(`App listening at port ${PORT}`)
-})
+  console.log(`App listening at port ${PORT}`);
+});
