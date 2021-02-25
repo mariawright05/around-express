@@ -25,9 +25,21 @@ function getOneUser(req, res) {
 }
 
 function createUser(req, res) {
-  const { name, about, avatar } = req.body;
+  const {
+    name,
+    about,
+    avatar,
+    email,
+    password,
+  } = req.body;
 
-  User.create({ name, about, avatar })
+  User.create({
+    name,
+    about,
+    avatar,
+    email,
+    password,
+  })
     .then((user) => res.status(200).send(user))
     .catch((err) => {
       if (err.name === 'ValidationError') {
